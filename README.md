@@ -28,7 +28,7 @@ Operator - operator:operator
 There are seven endpoint(s) developed for this demo:
 
 ```bash
-/oauth/token - token generation api with unrestricted access(A valid username and password should be passed in the request body for attaining JWT token with specific Authority)
+POST - /oauth/token - token generation api with unrestricted access(A valid username and password should be passed in the request body for attaining JWT token with specific Authority)
 
 POST - /api/v1/user - User adding API with unrestricted access(A valid username, password and Role should be passed in the request body)
 
