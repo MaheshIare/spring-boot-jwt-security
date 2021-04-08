@@ -81,7 +81,7 @@ spring.h2.console.enabled=true
 ```
 
 ## Questions
-If you have project related questions please create a new ticket with your question here [Create Issue](https://github.com/MaheshIare/spring-boot-jwt-security/issues)
+If you have project related questions please create a ticket with your question here [Create Issue](https://github.com/MaheshIare/spring-boot-jwt-security/issues)
 
 
 ## Author
