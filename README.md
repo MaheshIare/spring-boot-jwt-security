@@ -25,12 +25,14 @@ User - user:user
 Operator - operator:operator
 ```
 
-There are six endpoint(s) developed for this demo:
+There are seven endpoint(s) developed for this demo:
 
 ```bash
 /oauth/token - token generation api with unrestricted access(A valid username and password should be passed in the request body for attaining JWT token with specific Authority)
 
-GET - api/v1/vehicle/ - returns all the vehicle information for an authenticated user (a valid JWT token must be present in the request header). Any user can with authority ('ROLE_USER', 'ROLE_ADMIN', 'ROLE_OPERATOR') can access this API
+POST - /api/v1/user - User adding API with unrestricted access(A valid username, password and Role should be passed in the request body)
+
+GET - api/v1/vehicle - returns all the vehicle information for an authenticated user (a valid JWT token must be present in the request header). Any user can with authority ('ROLE_USER', 'ROLE_ADMIN', 'ROLE_OPERATOR') can access this API
 
 GET - api/v1/vehicle/{vehicleId} - returns specific vehicle information with id for an authenticated user (a valid JWT token must be present in the request header). Any user can with authority ('ROLE_USER', 'ROLE_ADMIN', 'ROLE_OPERATOR') can access this API
 
