@@ -19,17 +19,29 @@ import com.java.techhub.security.jwt.exception.InvalidUserRoleException;
 import com.java.techhub.security.jwt.model.UserRequest;
 import com.java.techhub.security.jwt.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 /**
  * @author mahes
  *
  */
 @RestController
 @RequestMapping("/api/v1/user")
+@Api(description = "Operations pertaining to add new users to database for token generation")
 public class UserApiController {
 
 	@Autowired
 	private UserService userService;
 
+	@ApiOperation(value = "Add a new user to the Users database", response = Map.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully saved the user to the datasbase"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Something went wrong while saving the user data") })
 	@PostMapping
 	public ResponseEntity<Map<String, String>> addNewUser(@RequestBody UserRequest userRequest)
 			throws InvalidUserRoleException, InvalidUserException {

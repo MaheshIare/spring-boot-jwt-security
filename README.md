@@ -80,6 +80,13 @@ spring.h2.console.enabled=true
 
 ```
 
+### Swagger Integration
+I have integrated the application with Springfox Swagger UI [3.0.0](http://springfox.github.io/springfox/docs/current/). Once the 
+application is up and running we can simply go to this link [Swagger-UI](http://localhost:8080/spring-boot-jwt-security/swagger-ui/) and perform the above mentioned operations.
+
+Swagger UI:
+![Swagger UI](img/swagger-ui.PNG?raw=true "Swagger UI")
+
 ## Questions
 If you have project related questions please create a ticket with your question here [Create Issue](https://github.com/MaheshIare/spring-boot-jwt-security/issues)
 

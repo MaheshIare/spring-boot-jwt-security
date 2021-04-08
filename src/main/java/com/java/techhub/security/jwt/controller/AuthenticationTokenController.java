@@ -21,12 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.java.techhub.security.jwt.model.AuthenticationRequest;
 import com.java.techhub.security.jwt.service.UtilService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 /**
  * @author mahes
  *
  */
 @RestController
 @RequestMapping("/auth/token")
+@Api(description = "Token generation API")
 public class AuthenticationTokenController {
 
 	@Autowired
@@ -36,17 +42,26 @@ public class AuthenticationTokenController {
 	private UtilService utilService;
 
 	/**
-	 * Method for generating the JWT token based on the user details passed in the request body
+	 * Method for generating the JWT token based on the user details passed in the
+	 * request body
+	 * 
 	 * @param authenticationRequest
 	 * @return JWT token
 	 */
+	@ApiOperation(value = "Generate a new JWT Token for the successfully authenticated user", response = Map.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully generated the JWT token"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Something went wrong while generating the JWT token") })
 	@PostMapping
 	public ResponseEntity<Map<String, String>> generateToken(@RequestBody AuthenticationRequest authenticationRequest) {
 		Map<String, String> map = new HashMap<>();
 		String username = null;
 		try {
 			username = authenticationRequest.getUsername();
-			//To authenticate the passed in user object and returns a fully authenticated object
+			// To authenticate the passed in user object and returns a fully authenticated
+			// object
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(username, authenticationRequest.getPassword()));
 		} catch (AuthenticationException e) {
@@ -54,11 +69,12 @@ public class AuthenticationTokenController {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
-		//Load details of the logged in user from database
+		// Load details of the logged in user from database
 		UserDetails userDetails = utilService.loadUserByUsername(username);
-		
-		//Generate JWT Token for the successfully authenticated user
+
+		// Generate JWT Token for the successfully authenticated user
 		String jwtToken = utilService.generateJwtToken(userDetails);
+		map.put("username", username);
 		map.put("token", jwtToken);
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}

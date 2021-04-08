@@ -75,14 +75,14 @@ public class VehicleServiceImpl implements VehicleService {
 	 */
 	@Override
 	public String deleteVehicle(Integer vehicleId) {
-		String response = "Failed to delete the user";
+		String response = "Failed to delete the vehicle with id: ";
 		try {
 			vehicleRepository.deleteById(vehicleId);
-			response = "Successfully deleted the user with id: " + vehicleId;
+			response = "Successfully deleted the vehicle with id: ";
 		} catch (Exception e) {
-			log.error("Exception occured while deleting the user due to: {}", e);
+			log.error("Exception occured while deleting the vehicle due to: {}", e);
 		}
-		return response;
+		return response + vehicleId;
 	}
 
 }
