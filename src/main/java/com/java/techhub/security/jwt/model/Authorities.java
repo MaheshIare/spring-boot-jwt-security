@@ -49,6 +49,11 @@ public class Authorities implements GrantedAuthority{
 	@Column(name = "AUTHORITY")
 	private String role;
 
+	public Authorities(String username, String role) {
+		this.username = username;
+		this.role = role;
+	}
+	
 	@Override
 	public String getAuthority() {
 		return getRole();

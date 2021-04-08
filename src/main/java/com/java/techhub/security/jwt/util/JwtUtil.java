@@ -20,6 +20,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class JwtUtil {
 	
+	/**
+	 * bcrypt hashed secret key for signing the jwt tokens
+	 * Key was hashed with 16 rounds and with value 'spring-boot-jwt-security-secret'
+	 */
 	@Value("${spring.security.jwt.hash.key}")
 	private String jwtHashKey;
 
