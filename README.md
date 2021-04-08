@@ -8,7 +8,7 @@ This is a simple demo for show casing the usage of **[JWT (JSON Web Token)](http
 This demo is build with with Spring boot 2.4.4.
 
 ## Usage
-Just start the application with the Spring Boot maven plugin (`mvn spring-boot:run`). The application is
+Just start the application with the Spring Boot maven plugin (`mvn spring-boot:run`). The application will be 
 running at [Localhost](http://localhost:8080/spring-boot-jwt-security).
 
 You can use the **H2-Console** for exploring the database under [H2-Console](http://localhost:8080/spring-boot-jwt-security/h2-console):
