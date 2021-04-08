@@ -30,11 +30,13 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author mahes
  *
  */
+@Slf4j
 @Component
 public class JwtTokenInterceptor extends OncePerRequestFilter {
 
@@ -52,15 +54,23 @@ public class JwtTokenInterceptor extends OncePerRequestFilter {
 		String username = null;
 		String jwtToken = null;
 		try {
+			//Get the Authorization bearer token from the current request
 			bearerToken = request.getHeader("Authorization");
 			if (bearerToken != null && bearerToken.startsWith("Bearer")) {
 				jwtToken = bearerToken.substring(7);
+				log.info("Extracting the user from JWT token");
+				//Extract the username from the JWT token
 				username = utilService.extractUsername(jwtToken);
 			}
 
 			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+				log.info("Fetching user details from the database for the authenticated user");
+				//Load user details from database for the extracted user
 				UserDetails userDetails = utilService.loadUserByUsername(username);
+				
+				//Validate the token for user data and expiry
 				if (utilService.validateToken(jwtToken, userDetails)) {
+					log.info("Token is valid and user is authenticated");
 					UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 							userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
 					usernamePasswordAuthenticationToken
@@ -68,6 +78,7 @@ public class JwtTokenInterceptor extends OncePerRequestFilter {
 					SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 				}
 			}
+			//Continuing the process of the filter chain
 			filterChain.doFilter(request, response);
 		} catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException
 				| IllegalArgumentException ex) {

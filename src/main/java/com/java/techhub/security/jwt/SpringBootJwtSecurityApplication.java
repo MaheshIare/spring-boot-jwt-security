@@ -3,6 +3,10 @@ package com.java.techhub.security.jwt;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author mahesh
+ *
+ */
 @SpringBootApplication
 public class SpringBootJwtSecurityApplication {
 

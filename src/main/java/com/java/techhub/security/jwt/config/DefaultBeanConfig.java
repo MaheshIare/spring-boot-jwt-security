@@ -17,11 +17,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class DefaultBeanConfig {
 
+	/**
+	 * Password Encoder for encoding passwords
+	 * @return passwordEncoder
+	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 
+	/**
+	 * Object mapper for data serialization
+	 * @return objectMapper
+	 */
 	@Bean
 	public ObjectMapper objectMapper() {
 		return new ObjectMapper();

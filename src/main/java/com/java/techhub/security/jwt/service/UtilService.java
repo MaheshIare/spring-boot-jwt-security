@@ -11,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public interface UtilService {
 
-	String[] extractCredentials(String authHeader);
-	
 	UserDetails loadUserByUsername(String username);
 	
 	String generateJwtToken(UserDetails userDetails);

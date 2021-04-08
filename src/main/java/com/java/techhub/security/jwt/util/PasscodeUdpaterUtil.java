@@ -29,6 +29,9 @@ public class PasscodeUdpaterUtil {
 	@Autowired
 	private UsersRepository usersRepository;
 
+	/**
+	 * Method to update the bcrypt hased passwords for the default users once the application is started
+	 */
 	@Transactional
 	@EventListener(value = { ApplicationReadyEvent.class })
 	public void onApplicationReady() {

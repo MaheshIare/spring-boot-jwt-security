@@ -38,11 +38,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	/**
+	 * Method for building the AuthenticationManager by setting the password encoder and custom user details service
+	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(jdbcUserDetailsService).passwordEncoder(passwordEncoder);
 	}
 
+	/**
+	 * Method for configuring the authentication rules for the API's
+	 */
 	@Override
 	protected void configure(final HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests().antMatchers(securityAntMatchers).permitAll().anyRequest()
@@ -53,6 +59,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity.headers().frameOptions().sameOrigin();
 	}
 
+	/**
+	 * To enable the backward compatability of spring security with latest spring boot version, we need to override the below method
+	 * for creating the AuthenticationManager Bean
+	 */
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {

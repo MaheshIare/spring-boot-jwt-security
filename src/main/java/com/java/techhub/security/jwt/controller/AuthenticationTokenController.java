@@ -35,12 +35,18 @@ public class AuthenticationTokenController {
 	@Autowired
 	private UtilService utilService;
 
+	/**
+	 * Method for generating the JWT token based on the user details passed in the request body
+	 * @param authenticationRequest
+	 * @return JWT token
+	 */
 	@PostMapping
 	public ResponseEntity<Map<String, String>> generateToken(@RequestBody AuthenticationRequest authenticationRequest) {
 		Map<String, String> map = new HashMap<>();
 		String username = null;
 		try {
 			username = authenticationRequest.getUsername();
+			//To authenticate the passed in user object and returns a fully authenticated object
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(username, authenticationRequest.getPassword()));
 		} catch (AuthenticationException e) {
@@ -48,7 +54,10 @@ public class AuthenticationTokenController {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
+		//Load details of the logged in user from database
 		UserDetails userDetails = utilService.loadUserByUsername(username);
+		
+		//Generate JWT Token for the successfully authenticated user
 		String jwtToken = utilService.generateJwtToken(userDetails);
 		map.put("token", jwtToken);
 		return new ResponseEntity<>(map, HttpStatus.OK);

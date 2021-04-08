@@ -20,7 +20,7 @@ import com.java.techhub.security.jwt.repository.UsersRepository;
 
 /**
  * @author mahes
- *
+ * This is a custom UserDetailsService backed up by H2 datasource, used for retrieving the user details from database
  */
 @Service
 public class JdbcUserDetailsService implements UserDetailsService {
@@ -31,6 +31,10 @@ public class JdbcUserDetailsService implements UserDetailsService {
 	@Autowired
 	private AuthoritiesRepository authoritiesRepository;
 
+	/**
+	 * Method to load the user details from database for the logged in user
+	 *@return UserDetails 
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<Users> optionalUser = usersRepository.findById(username);
