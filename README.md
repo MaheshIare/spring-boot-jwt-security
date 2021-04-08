@@ -13,6 +13,7 @@ running at [Localhost](http://localhost:8080/spring-boot-jwt-security).
 
 You can use the **H2-Console** for exploring the database under [H2-Console](http://localhost:8080/spring-boot-jwt-security/h2-console):
 
+![H2-console](img/h2-console.PNG?raw=true "H2-console")
 
 ## Backend
 There are three user accounts present to demonstrate the different levels of access to the endpoints in
@@ -40,13 +41,24 @@ PUT - /api/v1/vehicle - Updates the given vehicle information to the database fo
 DELETE - /api/v1/vehicle/{vehicleID} - deletes the specific vehicle information with id from the database for an authenticated user (a valid JWT token must be present in the request header). Only Users with 'ROLE_ADMIN' authority can perform this action.
 
 ```
+Token generation:
+![Token-generation](img/token-generation.PNG?raw=true "Token Generation")
+
+Invalid Token scenario:
+![Invalid Token](img/invalid-token.PNG?raw=true "Invalid Token")
+
+Expired Token scenario:
+![Expired Token](img/expired-token.PNG?raw=true "Expired Token")
+
+Valid Token scenario:
+![Valid Token](img/data-with-valid-token.PNG?raw=true "Valid Token")
 
 ### Generating password hashes for new users
 
 I'm using [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) to encode passwords. Your can generate your hashes with this simple 
 tool: [Bcrypt Generator](https://www.bcrypt-generator.com)
 
-### Using another database
+### Database configuration
 
 Actually this demo is using an embedded H2 database that is automatically configured by Spring Boot. If you want to connect 
 to another database you have to specify the connection in the *application.properties* in the resource directory. Here is the sample configuration for the purpose of demo:
