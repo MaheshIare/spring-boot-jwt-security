@@ -3,6 +3,8 @@
  */
 package com.java.techhub.security.jwt.service.impl;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +58,9 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	@Override
 	@Transactional
-	private String saveUserData(UserRequest userRequest) {
+	public String saveUserData(UserRequest userRequest) {
 		String encodedPassword = passwordEncoder.encode(userRequest.getPassword());
 		Users user = usersRepository.saveAndFlush(new Users(userRequest.getUsername(), encodedPassword, 1));
 		Authorities authority = authoritiesRepository
@@ -68,4 +71,10 @@ public class UserServiceImpl implements UserService {
 		return "FAILURE";
 	}
 
+	@Override
+	public List<UserRole> userRoles() {
+		return Arrays.asList(UserRole.values());
+	}
+
+	
 }
